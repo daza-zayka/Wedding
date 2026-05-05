@@ -123,7 +123,7 @@ img { max-width: 100%; display: block; }
 .hero__bg {
   position: absolute;
   inset: 0;
-  background-image: url('../assets/img/hero-bg.png');
+  background-image: url('assets/img/hero-bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -883,7 +883,7 @@ img { max-width: 100%; display: block; }
   position: absolute;
   width: 320px;
   height: 320px;
-  background-image: url('../assets/img/watercolor-1.png');
+  background-image: url('assets/img/watercolor-1.png');
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.18;
