@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Миша & Катя — 22.09.2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Italiana&family=Inter:wght@200;300;400;500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+
+    <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+
+    <!-- декоративные ракушки -->
+    <svg class="shell shell--1" viewBox="0 0 60 60" width="40" height="40"><path d="M30 5 C15 15 5 30 15 50 Q25 55 30 45 Q35 55 45 50 C55 30 45 15 30 5Z" fill="none" stroke="#fff" stroke-width="1" opacity="0.5"/></svg>
+    <svg class="shell shell--2" viewBox="0 0 50 50" width="35" height="35"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="0.8" opacity="0.4"/><path d="M25 5 L25 45 M10 15 L40 35 M10 35 L40 15" stroke="#fff" stroke-width="0.5" opacity="0.4"/></svg>
+    <svg class="shell shell--3" viewBox="0 0 60 60" width="30" height="30"><path d="M10 50 Q30 0 50 50 Z" fill="none" stroke="#fff" stroke-width="1" opacity="0.4"/></svg>
+
+    <div class="hero__content reveal">
+      <p class="hero__subtitle">Мы приглашаем вас на нашу свадьбу</p>
+      <h1 class="hero__names">Миша <span class="hero__amp">&</span> Катя</h1>
+      <div class="hero__date">
+        <span>22 сентября 2026</span>
+        <span class="hero__dot">·</span>
+        <span>Краснодар</span>
+      </div>
+<div class="hero__photo">
+  <img src="assets/img/couple.png" alt="Миша и Катя">
+</div>
+      <!-- Аудио плеер -->
+      <audio id="bgMusic" loop preload="auto">
+        <source src="assets/music.mp3" type="audio/mpeg">
+      </audio>
+
+<div class="player-wrap">
+  <button class="player" id="musicBtn" aria-label="Включить музыку">
+    <img class="player__shell-img" src="assets/img/shell.jpg" alt="">
+    <div class="player__pause-overlay">
+      <span></span><span></span>
+    </div>
+  </button>
+
+  <div class="waveform" id="waveform">
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+  <p class="player__hint">нажмите на ракушку</p>
+</div>
+
+  </section>
+
+  <!-- ===== ТАЙМЕР ===== -->
+  <section class="countdown" id="countdown">
+    <div class="container reveal">
+      <h2 class="section-title">До нашего дня</h2>
+      <div class="countdown__grid">
+        <div class="countdown__item">
+          <span class="countdown__number" id="cDays">000</span>
+          <span class="countdown__label">дней</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__number" id="cHours">00</span>
+          <span class="countdown__label">часов</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__number" id="cMinutes">00</span>
+          <span class="countdown__label">минут</span>
+        </div>
+        <div class="countdown__item">
+          <span class="countdown__number" id="cSeconds">00</span>
+          <span class="countdown__label">секунд</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ПРОГРАММА ===== -->
+  <section class="program" id="program">
+    <div class="container reveal">
+      <h2 class="section-title">Программа дня</h2>
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__time">13:30</div>
+          <div class="timeline__dot"></div>
+          <div class="timeline__text">
+            <h3>Сбор гостей</h3>
+            <p>Встречаемся у входа в загс</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__time">14:00</div>
+          <div class="timeline__dot"></div>
+          <div class="timeline__text">
+            <h3>Регистрация брака</h3>
+            <p>Самый трогательный момент дня</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__time">14:30</div>
+          <div class="timeline__dot"></div>
+          <div class="timeline__text">
+            <h3>Фотосет</h3>
+            <p>Фотографируемся после регистрации</p>
+          </div>
+        </div>
+        <div class="timeline__item">
+          <div class="timeline__time">18:00</div>
+          <div class="timeline__dot"></div>
+          <div class="timeline__text">
+            <h3>Банкет</h3>
+            <p>Праздничный ужин, тосты и веселье</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ЛОКАЦИЯ ===== -->
+
+<section class="location" id="location">
+  <svg class="wave wave--top" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,60 C360,0 1080,120 1440,60 L1440,0 L0,0 Z" fill="#FFF8E7"/>
+  </svg>
+
+  <div class="container">
+
+    <!-- Место 1: Регистрация -->
+    <div class="venue reveal">
+      <p class="venue__tag">14:00 · Регистрация брака</p>
+      <h2 class="section-title section-title--light">Дворец бракосочетания</h2>
+      <p class="venue__address">г. Краснодар, ул. Офицерская, 47</p>
+
+      <div class="venue__map">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?text=Краснодар%2C%20улица%20Офицерская%2C%2047&z=17"
+          width="100%" height="320" frameborder="0"
+          allowfullscreen="true" style="border-radius:16px;">
+        </iframe>
+      </div>
+
+      <a class="btn btn--light" href="https://yandex.ru/maps/?text=Краснодар%2C%20улица%20Офицерская%2C%2047" target="_blank" rel="noopener">
+        Построить маршрут
+      </a>
+    </div>
+
+    <!-- Разделитель -->
+    <div class="venue__divider">
+      <svg viewBox="0 0 60 20" width="60" height="20"><path d="M0 10 Q15 0 30 10 T60 10" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1"/></svg>
+    </div>
+
+    <!-- Место 2: Банкет -->
+    <div class="venue reveal">
+      <p class="venue__tag">16:00 · Банкет</p>
+      <h2 class="section-title section-title--light">Dvin Hall</h2>
+      <p class="venue__address">г. Краснодар, ул. Офицерская, 48</p>
+      <p class="venue__hint">Уточни адрес и я подставлю в карту</p>
+
+      <div class="venue__map">
+        <iframe
+          src="https://yandex.ru/map-widget/v1/?text=Краснодар%20Dvin%20Hall&z=16"
+          width="100%" height="320" frameborder="0"
+          allowfullscreen="true" style="border-radius:16px;">
+        </iframe>
+      </div>
+
+      <a class="btn btn--light" href="https://yandex.ru/maps/?text=Краснодар%20Dvin%20Hall" target="_blank" rel="noopener">
+        Построить маршрут
+      </a>
+    </div>
+
+  </div>
+
+  <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z" fill="#FFF8E7"/>
+  </svg>
+</section>
+
+  <!-- ===== ДРЕСС-КОД ===== -->
+  <section class="dresscode" id="dresscode">
+    <div class="container reveal">
+      <h2 class="section-title">Дресс-код</h2>
+      <p class="dresscode__text">Мы будем рады, если ваш наряд будет в&nbsp;нашей цветовой палитре</p>
+      <div class="dresscode__palette">
+        <div class="dresscode__color" style="background:#f0e4be;" title="Кремовый"></div>
+        <div class="dresscode__color" style="background:#cac9c9;" title="Серебристый"></div>
+        <div class="dresscode__color" style="background:#cddbe0;" title="Пыльный синий"></div>
+        <div class="dresscode__color" style="background:#A4C8DF;" title="Голубой"></div>
+        <div class="dresscode__color" style="background:#083064;" title="Тёмный синий"></div>
+      </div>
+      <p class="dresscode__note">Пожалуйста, воздержитесь от зеленого и красного</p>
+    </div>
+  </section>
+
+
+<!-- ===== ПОДАРКИ ===== -->
+<section class="gifts" id="gifts">
+  <div class="container reveal">
+    <svg class="gifts__icon" viewBox="0 0 60 60" width="48" height="48" fill="none">
+      <path d="M30 12 C25 5 12 8 15 20 C18 30 30 38 30 50 C30 38 42 30 45 20 C48 8 35 5 30 12 Z"
+            stroke="var(--blue-dusty)" stroke-width="1.2" fill="none"/>
+    </svg>
+
+    <h2 class="section-title">Вместо подарка</h2>
+    <p class="gifts__text">
+      Ваше присутствие — уже самый ценный подарок для нас.
+      Если же захочется порадовать нас чем-то ещё, мы будем благодарны
+      небольшому вкладу в бюджет молодой семьи.
+    </p>
+    <p class="gifts__signature">С любовью, Миша и Катя</p>
+  </div>
+</section>
+
+  <!-- ===== RSVP ===== -->
+  <section class="rsvp" id="rsvp">
+    <div class="container reveal">
+      <h2 class="section-title">Подтверждение присутствия</h2>
+      <p class="rsvp__subtitle">Пожалуйста, заполните форму до 1 сентября 2026</p>
+
+      <form class="rsvp__form" id="rsvpForm">
+        <!-- Имя -->
+        <div class="form-group">
+          <label for="guestName">Ваше имя и фамилия</label>
+          <input type="text" id="guestName" name="name" required placeholder="Иван Иванов">
+        </div>
+
+        <!-- Присутствие -->
+        <div class="form-group">
+          <label>Сможете ли вы прийти?</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="yes" required>
+              <span class="radio-card__body">С радостью буду!</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="attendance" value="no">
+              <span class="radio-card__body">К сожалению, нет</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Блок если придёт -->
+        <div class="form-conditional" id="attendYes" style="display:none;">
+          <!-- +1 -->
+          <div class="form-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="plusOne" name="plusone">
+              <span>Буду с парой</span>
+            </label>
+            <input type="text" id="partnerName" name="partner" placeholder="Имя вашей пары" style="display:none; margin-top:8px;">
+          </div>
+
+          <!-- Алкоголь -->
+          <div class="form-group">
+            <label>Предпочтения по напиткам</label>
+            <div class="checkbox-group">
+              <label class="checkbox-pill">
+                <input type="checkbox" name="drinks" value="Красное вино">
+                <span>🍷 Красное вино</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="drinks" value="Белое вино">
+                <span>🥂 Белое вино</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="drinks" value="Шампанское">
+                <span>🍾 Шампанское</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="drinks" value="Крепкое">
+                <span>🥃 Крепкое</span>
+              </label>
+              <label class="checkbox-pill">
+                <input type="checkbox" name="drinks" value="Безалкогольное">
+                <span>🧃 Безалкогольное</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Комментарий -->
+        <div class="form-group">
+          <label for="comment">Комментарий (необязательно)</label>
+          <textarea id="comment" name="comment" rows="3" placeholder="Любые пожелания или вопросы"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn--primary" id="submitBtn">Отправить</button>
+        <div class="rsvp__status" id="rsvpStatus"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <svg class="wave wave--top" viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <path d="M0,60 C360,0 1080,120 1440,60 L1440,0 L0,0 Z" fill="#FFF8E7"/>
+    </svg>
+    <div class="container">
+      <p class="footer__names">М & К</p>
+      <p class="footer__date">22.09.2026</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
