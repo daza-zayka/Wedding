@@ -127,7 +127,6 @@ img { max-width: 100%; display: block; }
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  animation: heroZoom 20s ease-in-out infinite alternate;
   z-index: 0;
 }
 
@@ -457,7 +456,7 @@ img { max-width: 100%; display: block; }
   left: -90px;
   width: 65px;
   text-align: right;
-  font-family: var(--font-display);
+   font-family: var(--font-numbers);
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--blue-dusty);
@@ -904,8 +903,8 @@ img { max-width: 100%; display: block; }
 
 /* Фото пары в hero */
 .hero__photo {
-  width: clamp(180px, 45vw, 240px);
-  height: clamp(180px, 45vw, 240px);
+  width: clamp(240px, 45vw, 240px);
+  height: clamp(240px, 45vw, 240px);
   margin: 0 auto 28px;
   border-radius: 50%;
   overflow: hidden;
@@ -954,3 +953,38 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.04em;
 }
 
+/* Акварель-2 на дополнительных секциях */
+.program,
+.gifts {
+  position: relative;
+  overflow: hidden;
+}
+
+.program::before,
+.gifts::after,
+.countdown::after,
+.rsvp::after {
+  content: '';
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-image: url('assets/img/watercolor-2.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Позиции для каждой секции (чтобы не повторялось) */
+.program::before  { top: -40px; left: -90px; transform: rotate(-15deg); }
+.gifts::after     { bottom: -60px; right: -70px; transform: rotate(20deg); }
+.countdown::after { bottom: -70px; left: -90px; transform: rotate(30deg); }
+.rsvp::after      { bottom: 20px; right: -100px; transform: rotate(-25deg); }
+
+/* Контент поверх декора */
+.program > .container,
+.gifts   > .container {
+  position: relative;
+  z-index: 1;
+}
