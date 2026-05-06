@@ -1,3 +1,18 @@
+
+/* Фиксим высоту hero на мобильных */
+(function fixHeroHeight() {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  function setHeight() {
+    hero.style.height = window.innerHeight + 'px';
+  }
+
+  setHeight();
+  // НЕ пересчитываем при resize - в этом суть фикса
+})();
+
+
 /* ============================
    COUNTDOWN TIMER
    ============================ */
@@ -80,12 +95,18 @@
    RSVP FORM LOGIC
    ============================ */
 (function initRSVP() {
-  const form = document.getElementById('rsvpForm');
-  const conditional = document.getElementById('attendYes');
-  const plusOneCheck = document.getElementById('plusOne');
+  const form         = document.getElementById('rsvpForm');
+  const conditional  = document.getElementById('attendYes');
+  const plusOneCheck  = document.getElementById('plusOne');
   const partnerInput = document.getElementById('partnerName');
-  const statusEl = document.getElementById('rsvpStatus');
+  const statusEl     = document.getElementById('rsvpStatus');
+  const btn          = document.getElementById('submitBtn');
 
+  const SCRIPT_URL   = 'https://script.google.com/macros/s/AKfycbx2lE-qgk7Ja5RxGJ7bEyz2GakoVpVJh6WMy-fj-fNz9dgM73YUvR-Zd4u_DMLlLhpc/exec';
+  const STORAGE_KEY  = 'rsvp_submissions';
+  const MAX_LOCAL    = 2;
+
+  // ─── UI переключатели ───
   form.querySelectorAll('input[name="attendance"]').forEach(radio => {
     radio.addEventListener('change', () => {
       conditional.style.display = radio.value === 'yes' && radio.checked ? 'block' : 'none';
@@ -97,30 +118,92 @@
     if (!plusOneCheck.checked) partnerInput.value = '';
   });
 
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby-YsIIA5VPCgKTt66Xe80GfBPyylFQtqqR0JER-PXvp5YvaEN2ToA_whLU28pzF3HK/exec'; // вставишь URL Apps Script
+  // ─── Хелперы ───
+  function showStatus(text, type) {
+    statusEl.textContent = text;
+    statusEl.className = 'rsvp__status ' + type;
+  }
 
+  function getLocalCount(name) {
+    try {
+      const store = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const key = name.toLowerCase().replace(/\s+/g, ' ');
+      return store[key] || 0;
+    } catch { return 0; }
+  }
+
+  function incrementLocal(name) {
+    try {
+      const store = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+      const key = name.toLowerCase().replace(/\s+/g, ' ');
+      store[key] = (store[key] || 0) + 1;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+    } catch { /* localStorage недоступен */ }
+  }
+
+  async function checkServerLimit(name) {
+    try {
+      const url = SCRIPT_URL + '?action=check&name=' + encodeURIComponent(name);
+      const res = await fetch(url);
+      const json = await res.json();
+      return json.allowed;
+    } catch {
+      // Сервер недоступен - разрешаем, бэк все равно проверит
+      return true;
+    }
+  }
+
+  // ─── Отправка ───
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     statusEl.textContent = '';
     statusEl.className = 'rsvp__status';
 
-    if (!SCRIPT_URL) {
-      statusEl.textContent = 'Форма пока не подключена к серверу';
-      statusEl.classList.add('error');
+    const name = form.name.value.trim();
+
+    if (!name) {
+      showStatus('Пожалуйста, введите имя', 'error');
       return;
     }
 
-    const btn = document.getElementById('submitBtn');
     btn.disabled = true;
+    btn.textContent = 'Проверяю...';
+
+    // 1. Быстрая проверка localStorage
+    if (getLocalCount(name) >= MAX_LOCAL) {
+      showStatus('Вы уже отправляли ответ. Если нужно что-то изменить, напишите нам лично', 'warning');
+      btn.disabled = false;
+      btn.textContent = 'Отправить';
+      return;
+    }
+
+    // 2. Проверка на сервере (GET, читаемый ответ)
+    btn.textContent = 'Проверяю...';
+    const allowed = await checkServerLimit(name);
+
+    if (!allowed) {
+      showStatus('Вы уже отправляли ответ. Если нужно что-то изменить, напишите нам лично', 'warning');
+      // Синхронизируем localStorage с сервером
+      try {
+        const store = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        store[name.toLowerCase().replace(/\s+/g, ' ')] = MAX_LOCAL;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
+      } catch {}
+      btn.disabled = false;
+      btn.textContent = 'Отправить';
+      return;
+    }
+
+    // 3. Отправка (POST, no-cors - ответ не читаем, но бэк запишет)
     btn.textContent = 'Отправляю...';
 
     const data = {
-      name: form.name.value.trim(),
+      name:       name,
       attendance: form.attendance.value,
-      plusone: plusOneCheck.checked ? 'Да' : 'Нет',
-      partner: partnerInput.value.trim(),
-      drinks: [...form.querySelectorAll('input[name="drinks"]:checked')].map(c => c.value).join(', '),
-      comment: form.comment.value.trim(),
+      plusone:    plusOneCheck.checked ? 'Да' : 'Нет',
+      partner:   partnerInput.value.trim(),
+      drinks:    [...form.querySelectorAll('input[name="drinks"]:checked')].map(c => c.value).join(', '),
+      comment:   form.comment.value.trim(),
       timestamp: new Date().toLocaleString('ru-RU')
     };
 
@@ -131,14 +214,15 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-      statusEl.textContent = 'Спасибо! Ваш ответ записан ♥';
-      statusEl.classList.add('success');
+
+      incrementLocal(name);
+      showStatus('Спасибо! Ваш ответ записан ♥', 'success');
       form.reset();
       conditional.style.display = 'none';
       partnerInput.style.display = 'none';
+
     } catch (err) {
-      statusEl.textContent = 'Ошибка отправки. Попробуйте ещё раз.';
-      statusEl.classList.add('error');
+      showStatus('Ошибка отправки. Попробуйте ещё раз', 'error');
     } finally {
       btn.disabled = false;
       btn.textContent = 'Отправить';
