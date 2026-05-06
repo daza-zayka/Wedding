@@ -112,6 +112,7 @@ img { max-width: 100%; display: block; }
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
+  min-height: -webkit-fill-available; /* фоллбэк для iOS */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -130,10 +131,7 @@ img { max-width: 100%; display: block; }
   z-index: 0;
 }
 
-@keyframes heroZoom {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.08); }
-}
+
 
 /* Затемнение/тонировка для читаемости текста */
 .hero__overlay {
@@ -461,6 +459,7 @@ img { max-width: 100%; display: block; }
   font-weight: 600;
   color: var(--blue-dusty);
   padding-top: 2px;
+  margin-left: 5px;
 }
 
 .timeline__dot {
@@ -988,3 +987,4 @@ img { max-width: 100%; display: block; }
   position: relative;
   z-index: 1;
 }
+
